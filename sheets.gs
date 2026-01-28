@@ -1,20 +1,35 @@
 const ss = SpreadsheetApp.getActiveSpreadsheet();
 
-/* Duplicates the master sheet and names it today's date.
- */
-function createNewSheet() {
-  const master = ss.getSheetById(0);
-  const todayStr = new Date().toLocaleDateString();
+class Sheets {
+  /* Duplicates the master sheet and names it today's date.
+  */
+  static newSheet() {
+    const master = ss.getSheetById(0);
+    const todayStr = new Date().toLocaleDateString();
 
-  let sheet = ss.getSheetByName(todayStr);
-  if (sheet === null) {
-    sheet = master.copyTo(ss);
-  } else {
-    ui.alert(`Sheet '${todayStr}' already exists!`);
+    let sheet = ss.getSheetByName(todayStr);
+    if (sheet === null) {
+      sheet = master.copyTo(ss);
+    } else {
+      ui.alert(`Sheet '${todayStr}' already exists!`);
+    }
+
+    sheet.showSheet();
+    ss.setActiveSheet(sheet);
+    ss.renameActiveSheet(todayStr);
+    ss.moveActiveSheet(1);
   }
 
-  sheet.showSheet();
-  ss.setActiveSheet(sheet);
-  ss.renameActiveSheet(todayStr);
-  ss.moveActiveSheet(1);
+  /* Gets 'QC' sheets based on provided filter function.
+  * @param f {(Sheet sheet, number date) => bool} Filter function.
+  * @return {Sheet[]} Filtered sheets.
+  */
+  static getSheets(f)
+  {
+    return ss.getSheets().filter((sheet) => {
+      const date = Date.parse(sheet.getName());
+
+      return !isNaN(date) && f(sheet, date);
+    });
+  }
 }
