@@ -38,9 +38,11 @@ class Sheets {
    * @return {string[][]} 2D array of values from sheet.
    */ 
   static getData(sheet) {
-    return sheet.getRange("A1:G300").getValues().filter(row => {
-      return Sheets._isValidRow(row);
-    });
+    return sheet
+      .getRange("A2:G300")
+      .getValues()
+      .filter(row => Sheets._isValidRow(row))
+      .map(row => [Date.parse(sheet.getName()), ...row]);
   }
 
   /* Validates a 'QC' row entry.
