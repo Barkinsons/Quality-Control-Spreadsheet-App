@@ -45,6 +45,24 @@ class Sheets {
       .map(row => [Date.parse(sheet.getName()), ...row]);
   }
 
+  /* Hides QC sheets based on setting 'numWeeksToShow'.
+   */
+  static hide() {
+    const cutoff = getMondayCutoff((numWeeksToShow - 1) * 7);
+
+    const sheetsToHide = Sheets.getSheets((sheet, date) => !sheet.isSheetHidden() && date < cutoff);
+    sheetsToHide.forEach(sheet => sheet.hideSheet());
+  }
+
+  /* Deletes old QC sheets based on setting 'numDaysToKeep'.
+   */
+  static clean() {
+    const cutoff = getCutoff(numDaysToKeep);
+    
+    const sheetsToDelete = Sheets.getSheets((_, date) => date < cutoff);
+    sheetsToDelete.forEach(sheet => ss.deleteSheet(sheet));
+  }
+
   /* Validates a 'QC' row entry.
    * @param row {string[]} Row entry.
    * @return {bool} Whether the row is a valid 'QC' entry.
