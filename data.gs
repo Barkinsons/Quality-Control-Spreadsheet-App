@@ -8,10 +8,12 @@ class Data {
 
   /* Converts data into an object that represents the error counts
    * for each resource on their given days.
-   * @return {{string resource: {int date: int count}}} Error count data.
+   * @return {[number min, number max, {string resource: {int date: int count}}]} Error count data.
    */
   get counts() {
     let _counts = {};
+    let min = Infinity;
+    let max = -Infinity;
 
     this.data.forEach((row) => {
       const resource = row[4];
@@ -26,9 +28,16 @@ class Data {
         }
 
         _counts[resource][date] += 1;
+
+        if (date < min) {
+          min = date;
+        }
+        if (date > max) {
+          max = date;
+        }
       }
     });
 
-    return _counts;
+    return [min, max, _counts];
   }
 }
