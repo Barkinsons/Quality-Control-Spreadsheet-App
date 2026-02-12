@@ -21,3 +21,15 @@ function getMondayCutoff(numDays) {
 
   return getCutoff(numDays + offset);
 }
+
+/* Gets the monday datetime for the week of the given date.
+ * @param date {number} Date.
+ * @return {number} Monday datetime.
+ */
+function getMonday(date) {
+  const monday = new Date(date);
+  const offset = (monday.getDay() + 6) % 7;
+  monday.setDate(monday.getDate() - offset);
+
+  return monday.getTime();
+}

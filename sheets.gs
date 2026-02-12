@@ -70,4 +70,28 @@ class Sheets {
   static _isValidRow(row) {
     return row.some(cell => cell !== "");
   }
+
+  /* Gets a sheet by name, creates it if it doesn't exists.
+   * @param name {string} Sheet name.
+   * @return {Sheet} Sheet with name.
+   */
+  static getSheet(name) {
+    let s = ss.getSheetByName(name);
+
+    if (s === null) {
+      s = ss.insertSheet(name);
+    }
+
+    return s;
+  }
+
+  /* Gets sheets for the last number of weeks.
+   * @param numWeeks {number} Number of weeks to get.
+   * @return {Sheet[]} Sheets from last number of weeks.
+   */
+  static fromWeeks(numWeeks) {
+    const cutoff = getMondayCutoff(7 * (numWeeks - 1));
+
+    return Sheets.getSheets((_, date) => date >= cutoff);
+  }
 }

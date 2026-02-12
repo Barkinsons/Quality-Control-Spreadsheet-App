@@ -41,3 +41,9 @@ class Data {
     return [min, max, _counts];
   }
 }
+
+function test() {
+  const d = new Data(Sheets.getSheets(() => true));
+
+  Write.productivity(d.counts);
+}
