@@ -1,10 +1,24 @@
-# Quality-Control-Spreadsheet-App
+# Quality Control Spreadsheet App
 
-## What is it?
-This is a Google Apps Script Spreadsheet App designed to faciliate Quality Control (QC) data entry and to visualize QC data.
+## Overview
+The Quality Control Spreadsheet App is a Google Apps Script application designed to streamline Quality Control (QC) data entry and reporting within Google Sheets. It automates repetitive administrative tasks and transforms raw QC data into structured, readable summaries.
 
-## What does it do?
-This app automates simple tasks such as duplicating and renaming sheets. It also consiladates QC data and visualizes and formats it into a readable sheet digest.
+## Features
 
-## How does it work?
-This app utilizes a QC master sheet, which serves as the backbone for QC data entry. Users simply need to create a new sheet using the custom UI menu, which duplicates the master sheet and allows them to enter QC data day to day. To visualize the data, users will use the same UI menu, which will consilidate and visualize all relevant data onto a separate sheet.
+### Automated Sheet Creation
+Generate new QC sheets directly from a custom UI menu. Each new sheet is automatically duplicated from a standardized master template and renamed appropriately.
+
+### Centralized Data Consolidation
+Aggregates QC data from multiple sheets into a single, unified dataset.
+
+### Automated Reporting & Visualization
+Formats and organizes consolidated QC data into a clean, digestible summary sheet for easy review and analysis.
+
+## How It Works
+
+The application is built around a centralized **QC Master Sheet**, which serves as the standardized template for daily data entry.
+
+1. Users create a new QC sheet via the custom menu.
+2. The app duplicates the master template and prepares it for daily input.
+3. When reporting is needed, users select the visualization option from the same menu.
+4. The script consolidates all relevant QC data and generates a formatted summary sheet.
